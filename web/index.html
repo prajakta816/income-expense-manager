@@ -4,37 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="description" content="Income Expense Manager - Simple money tracking application">
     <title>Income Expense Manager</title>
 
+    <!-- prebuilt: Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- prebuilt: Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <h1>Create User</h1>
+    <!-- prebuilt bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/images/logo.png" alt="Logo" class="navbar-logo">
+                <span class="brand-text">
+                    <span class="brand-highlight">Finance</span>Tracker
+                </span>
+            </a>
 
-    <form id="userForm" class="user-form">
+            <!-- prebuilt bootstrap toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required >
+            <!-- prebuilt bootstrap collapse -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                </ul>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required >
+                <div class="d-flex align-items-center gap-2 ms-auto mt-3 mt-lg-0">
+                    <!-- prebuilt bootstrap button -->
+                    <a href="register.html" class="btn btn-outline-light rounded-pill px-4">
+                        <i class="bi bi-person-plus me-1"></i>Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        <label for="phone">Phone:</label>
-        <input  type="tel" id="phone" name="phone"
-        >
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center text-white">
+            <p class="hero-badge">Smart Finance Management</p>
+            <h1 class="hero-title">Take Control of<br><span class="text-highlight">Your Money</span></h1>
+            <p class="hero-subtitle">Track income, manage expenses, and build better financial habits — all in one simple place.</p>
+            
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="register.html" class="btn btn-primary-custom btn-lg rounded-pill px-4">Get Started Free</a>
+                <a href="#features" class="btn btn-outline-light btn-lg rounded-pill px-4">Learn More</a>
+            </div>
+        </div>
+    </section>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+    <!-- Stats Section (using prebuilt Bootstrap Grid) -->
+    <section class="stats-section py-5">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="p-3">
+                        <h2 class="stat-number">10K+</h2>
+                        <p class="stat-label">Users Tracking</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3">
+                        <h2 class="stat-number">₹50M+</h2>
+                        <p class="stat-label">Expenses Tracked</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3">
+                        <h2 class="stat-number">99%</h2>
+                        <p class="stat-label">User Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <button type="submit">Create User</button>
+    <!-- Features Section (using prebuilt Bootstrap Grid and Cards) -->
+    <section class="features-section py-5" id="features">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Why Choose <span class="text-highlight">FinanceTracker?</span></h2>
+                <p class="section-subtitle">Simple tools to help you stay on top of your finances</p>
+            </div>
 
-    </form>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-graph-up-arrow feature-icon"></i>
+                        <h5>Track Income</h5>
+                        <p>Log all your income sources in one place and see a clear picture of what you earn.</p>
+                    </div>
+                </div>
 
-    <script src="js/user.js"></script>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-wallet2 feature-icon"></i>
+                        <h5>Manage Expenses</h5>
+                        <p>Categorize and track every expense so you always know where your money goes.</p>
+                    </div>
+                </div>
 
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="bi bi-pie-chart feature-icon"></i>
+                        <h5>Visual Reports</h5>
+                        <p>Get clear, easy-to-read charts that show your spending habits at a glance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action Section -->
+    <section class="cta-section py-5">
+        <div class="container">
+            <div class="cta-box text-center">
+                <h2 class="fw-bold mb-2">Ready to Start Saving?</h2>
+                <p class="mb-4">Join thousands of people managing their finances smarter.</p>
+                <!-- prebuilt bootstrap button -->
+                <a href="register.html" class="btn btn-primary-custom btn-lg rounded-pill px-5">
+                    Create Free Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">© 2026 FinanceTracker. Built with HTML, CSS & Bootstrap.</p>
+        </div>
+    </footer>
+
+    <!-- prebuilt: Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
