@@ -46,10 +46,6 @@ userForm.addEventListener("submit", function (event) {
     ) || [];
 
 
-    // =========================
-    // UPDATE USER
-    // =========================
-
     if (editUserId) {
 
         // Find the position of the user
@@ -80,11 +76,6 @@ userForm.addEventListener("submit", function (event) {
         window.location.href = "users.html";
 
     }
-
-
-    // =========================
-    // CREATE USER
-    // =========================
 
     else {
 
