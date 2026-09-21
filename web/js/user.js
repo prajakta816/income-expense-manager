@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // Get the user form
 const userForm = document.getElementById("userForm");
 
@@ -113,3 +114,5 @@ userForm.addEventListener("submit", function (event) {
     }
 
 });
+=======
+>>>>>>> Stashed changes
