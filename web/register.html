@@ -18,7 +18,7 @@
 
 <body class="register-body">
 
-    <form id="registerForm" class="register-box">
+    <form id="registerForm" class="register-box" novalidate>
 
         <a href="index.html" class="register-logo">
             <img src="assets/images/logo.png" alt="Logo">
@@ -29,23 +29,37 @@
         <p>Please enter your details to sign up</p>
 
         <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Enter your full name" required>
+        <input type="text" id="name" placeholder="Enter your full name" required aria-describedby="nameError">
+        <div id="nameError" class="field-error" aria-live="polite"></div>
 
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required aria-describedby="emailError">
+        <div id="emailError" class="field-error" aria-live="polite"></div>
 
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" required>
+        <div class="password-field">
+            <input type="password" id="password" placeholder="Enter password" autocomplete="new-password" required minlength="8" aria-describedby="passwordError">
+            <button type="button" class="password-toggle" data-target="password" aria-label="Show password" aria-pressed="false">show</button>
+        </div>
+        <div id="passwordError" class="field-error" aria-live="polite"></div>
 
         <label for="confirm">Confirm Password</label>
-        <input type="password" id="confirm" placeholder="Confirm password" required>
+        <div class="password-field">
+            <input type="password" id="confirm" placeholder="Confirm password" autocomplete="new-password" aria-describedby="confirmError">
+            <button type="button" class="password-toggle" data-target="confirm" aria-label="Show confirm password" aria-pressed="false">show</button><!--aria-pressed this attribute indicates whether the button is currently pressed -->
+        </div>
+        <div id="confirmError" class="field-error" aria-live="polite"></div>
 
         <label for="gender">Gender</label>
-        <select id="gender" required>
-            <option value="" disabled selected>Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>
+        <div class="select-field">
+            <select id="gender" required aria-describedby="genderError">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <button type="button" id="clearGender" class="gender-clear" aria-label="Clear gender selection" hidden>&times;</button>
+        </div>
+        <div id="genderError" class="field-error" aria-live="polite"></div>
 
         <button type="submit" id="registerBtn" class="register-btn">
             <!-- Prebuilt: Bootstrap Spinner -->
@@ -64,7 +78,7 @@
         <div id="liveToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
-                    🎉 Registration successful! Redirecting to login...
+                     Registration successful! Redirecting to login...
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

@@ -3,6 +3,9 @@ const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 if (!currentUser) {
     alert('Please login first!');
     window.location.href = 'login.html';
+} else if (currentUser.role !== 'admin') {
+    alert('Access restricted to Admin only!');
+    window.location.href = 'user-dashboard.html';
 } else {
     document.getElementById('userName').innerText = currentUser.name;
 }
@@ -51,34 +54,104 @@ function renderTable() {
     });
 }
 
+// Password toggle handler for user modal
+document.querySelectorAll('.password-toggle').forEach(function (button) {
+    button.addEventListener('click', function () {
+        const passwordInput = document.getElementById(button.dataset.target);
+        const isHidden = passwordInput.type === 'password';
+        passwordInput.type = isHidden ? 'text' : 'password';
+        button.textContent = isHidden ? 'hide' : 'show';
+        button.setAttribute('aria-label', `${isHidden ? 'hide' : 'show'} password`);
+        button.setAttribute('aria-pressed', String(isHidden));
+    });
+});
+
+function setModalFieldError(input, errorId, message) {
+    const errEl = document.getElementById(errorId);
+    if (errEl) errEl.textContent = message;
+    input.classList.toggle('input-error', Boolean(message));
+    return !message;
+}
+
+function clearModalErrors() {
+    ['userName2', 'userEmail', 'userPassword', 'userConfirmPassword', 'userGender'].forEach(function(id) {
+        const el = document.getElementById(id);
+        const errEl = document.getElementById(id + 'Error');
+        if (el) el.classList.remove('input-error');
+        if (errEl) errEl.textContent = '';
+    });
+}
+
 // 5. Reset Modal fields when opening for Add
 document.getElementById('userModal').addEventListener('show.bs.modal', function () {
+    clearModalErrors();
     if (!document.getElementById('userId').value) {
         document.getElementById('modalTitle').innerText = 'Add User';
         document.getElementById('saveText').innerText = 'Save';
         document.getElementById('userName2').value = '';
         document.getElementById('userEmail').value = '';
         document.getElementById('userPassword').value = '';
+        document.getElementById('userConfirmPassword').value = '';
         document.getElementById('userGender').value = '';
     }
 });
 
 document.getElementById('userModal').addEventListener('hidden.bs.modal', function () {
     document.getElementById('userId').value = '';
+    clearModalErrors();
 });
 
 // 6. Save Button: Add or Edit
 document.getElementById('saveBtn').addEventListener('click', function () {
+    clearModalErrors();
     const id = document.getElementById('userId').value;
-    const name = document.getElementById('userName2').value.trim();
-    const email = document.getElementById('userEmail').value.trim();
-    const password = document.getElementById('userPassword').value.trim();
-    const gender = document.getElementById('userGender').value;
+    const nameInput = document.getElementById('userName2');
+    const emailInput = document.getElementById('userEmail');
+    const passInput = document.getElementById('userPassword');
+    const confirmInput = document.getElementById('userConfirmPassword');
+    const genderInput = document.getElementById('userGender');
 
-    if (!name || !email || !password || !gender) {
-        alert('Please fill all fields!');
-        return;
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passInput.value.trim();
+    const confirmPass = confirmInput.value.trim();
+    const gender = genderInput.value;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let isValid = true;
+
+    if (!name) {
+        setModalFieldError(nameInput, 'userName2Error', 'full name is required.');
+        isValid = false;
+    } else if (name.length < 2) {
+        setModalFieldError(nameInput, 'userName2Error', 'enter a valid name (at least 2 characters).');
+        isValid = false;
     }
+
+    if (!email) {
+        setModalFieldError(emailInput, 'userEmailError', 'email address is required.');
+        isValid = false;
+    } else if (!emailPattern.test(email)) {
+        setModalFieldError(emailInput, 'userEmailError', 'enter a valid email address.');
+        isValid = false;
+    }
+
+    if (!password) {
+        setModalFieldError(passInput, 'userPasswordError', 'password is required.');
+        isValid = false;
+    }
+
+    if (confirmPass !== password) {
+        setModalFieldError(confirmInput, 'userConfirmPasswordError', 'passwords do not match.');
+        isValid = false;
+    }
+
+    if (!gender) {
+        setModalFieldError(genderInput, 'userGenderError', 'please select your gender.');
+        isValid = false;
+    }
+
+    if (!isValid) return;
 
     const spinner = document.getElementById('saveSpinner');
     const saveText = document.getElementById('saveText');
@@ -100,21 +173,21 @@ document.getElementById('saveBtn').addEventListener('click', function () {
             // EDIT existing user
             users = users.map(function (user) {
                 if (user.id == id) {
-                    return { id: user.id, name: name, email: email, password: password, gender: gender };
+                    return { id: user.id, name: name, email: email, password: password, gender: gender, role: user.role || 'user' };
                 }
                 return user;
             });
-            showToast('✅ User updated successfully!');
+            showToast('User updated successfully!');
         } else {
             // ADD new user
             const emailExists = users.some(function (user) {
                 return user.email.toLowerCase() === email.toLowerCase();
             });
             if (emailExists) {
-                alert('Email already exists!');
+                setModalFieldError(emailInput, 'userEmailError', 'email already exists.');
                 return;
             }
-            users.push({ id: Date.now(), name: name, email: email, password: password, gender: gender });
+            users.push({ id: Date.now(), name: name, email: email, password: password, gender: gender, role: 'user' });
             showToast('🎉 User added successfully!');
         }
 
@@ -140,7 +213,6 @@ function openEditModal(id) {
     document.getElementById('userPassword').value = user.password;
     document.getElementById('userGender').value = user.gender;
 
-    // Prebuilt: Bootstrap Modal open
     new bootstrap.Modal(document.getElementById('userModal')).show();
 }
 
