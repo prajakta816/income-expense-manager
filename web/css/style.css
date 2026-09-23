@@ -43,6 +43,7 @@ body {
 
 .hero-section {
     min-height: 100vh;
+    /*due to which that scrolling effect is coming its just browser behaviour*/
     background: linear-gradient(rgba(10, 14, 40, 0.75), rgba(10, 14, 40, 0.75)),
         url("../assets/images/image.jpg") center/cover no-repeat;
     display: flex;
@@ -235,7 +236,7 @@ body {
 .register-box select {
     width: 100%;
     padding: 10px 12px;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
     background-color: #0a0e28;
     border: 1px solid #233060;
     border-radius: 6px;
@@ -253,6 +254,97 @@ body {
 .register-box select:focus {
     border-color: #00bfff;
     outline: none;
+}
+
+/* Password field wrapper and inside show/hide button */
+.password-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 65px;
+    margin-bottom: 0 !important;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #00bfff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: lowercase;
+    cursor: pointer;
+    padding: 3px 6px;
+    line-height: 1;
+    z-index: 5;
+    outline: none;
+}
+
+.password-toggle:hover {
+    color: #0099cc;
+    text-decoration: underline;
+}
+
+/* Select field wrapper for gender clear button */
+.select-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.select-field select {
+    margin-bottom: 0 !important;
+    padding-right: 35px;
+}
+
+.gender-clear {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    z-index: 5;
+}
+
+.gender-clear:hover {
+    color: #ff4d4f;
+}
+
+/* Red small letter error notifications below input fields */
+.field-error,
+.modal-field-error {
+    color: #ff4d4f;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    min-height: 1.1rem;
+    line-height: 1.2;
+    text-transform: lowercase;
+}
+
+.field-error:empty,
+.modal-field-error:empty {
+    min-height: 0;
+    margin-bottom: 4px;
+}
+
+.input-error {
+    border-color: #ff4d4f !important;
 }
 
 .register-btn {
